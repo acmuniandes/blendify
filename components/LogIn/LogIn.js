@@ -34,7 +34,7 @@ class LogIn extends React.Component {
         />
         <Input
           placeholder="Contraseña"
-          
+          secureTextEntry={true}
           leftIcon={<Icon name='lock-outline' size={24} color='black'/>}
         />
         <Button

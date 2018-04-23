@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Dimensions, Text, View } from 'react-native';
 import { LinearGradient } from 'expo';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
+import { Button } from 'react-native-elements';
 
 const styles = StyleSheet.create({
   container: {
@@ -50,14 +51,17 @@ class Intro extends React.Component {
     super(props);
     this.state = {
       message: '',
-      activeSlide: null
+      activeSlide: 0
     }
   }
 
   messages = [
     'Comparte tu música en el carro! Dale la oportunidad a todos de esucuchar algo que les guste y descubrir los gustos de los demás.',
     'Regístrate y comienza a armar tus playlist para tus viajes, es tan sencillo como escanear un código QR',
-    'Las playlist se crean con base en los gustos de los usuarios que vayan en el viaje, así todos aportan algo de su música al viaje'
+    'Las playlist se crean con base en los gustos de los usuarios que vayan en el viaje, así todos aportan algo de su música al viaje',
+    {
+      end: true
+    }
   ];
 
   gradientColors = ['#2B2C2B', '#0A0A0A'];
@@ -94,6 +98,12 @@ class Intro extends React.Component {
             itemWidth={Dimensions.get('window').width}
             renderItem={({ item }) => {
               return (
+                item.end?
+                <View>
+                  <Button
+                    title="Continuar"
+                  />
+                </View>:
                 <View>
                   <Text style={styles.message}>{item}</Text>
                 </View>

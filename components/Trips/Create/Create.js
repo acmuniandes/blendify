@@ -33,8 +33,15 @@ class Create extends React.Component {
   render() {
     return (
       <LinearGradient colors={this.gradientColors} locations={this.gradientStops}>
+        <Button
+          title=""
+          icon="arrow-back"
+          onPress={() => "hola"}
+        />
         <Notice confirm={this.confirm} />
       </LinearGradient>
     );
   }
 }
+
+export default Create;
