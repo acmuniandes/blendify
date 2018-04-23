@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginHorizontal: 8,
     backgroundColor: '#1ed760'
-}
+  }
 });
 
 class Intro extends React.Component {
@@ -54,14 +54,14 @@ class Intro extends React.Component {
     }
   }
 
-  gradientColors = ['#2B2C2B', '#0A0A0A'];
-  gradientStops = [0, 1];
-
   messages = [
     'Comparte tu música en el carro! Dale la oportunidad a todos de esucuchar algo que les guste y descubrir los gustos de los demás.',
     'Regístrate y comienza a armar tus playlist para tus viajes, es tan sencillo como escanear un código QR',
     'Las playlist se crean con base en los gustos de los usuarios que vayan en el viaje, así todos aportan algo de su música al viaje'
-  ]
+  ];
+
+  gradientColors = ['#2B2C2B', '#0A0A0A'];
+  gradientStops = [0, 1];
 
   invertStops = stops => {
     for (var i = 0; i < stops.length; i++) {
@@ -71,7 +71,7 @@ class Intro extends React.Component {
     this.gradientStops.reverse();
   }
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     this.invertStops(this.gradientStops);
   }
 
@@ -99,7 +99,7 @@ class Intro extends React.Component {
                 </View>
               );
             }}
-            onSnapToItem={(index) => this.setState({ activeSlide: index }) }
+            onSnapToItem={(index) => this.setState({ activeSlide: index })}
           />
           <Pagination
             dotsLength={this.messages.length}
