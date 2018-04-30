@@ -1,8 +1,42 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo';
 import { Button, Input, Icon } from 'react-native-elements';
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  title:{
+    fontSize: 32,
+    color: "whitesmoke",
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+  inputExteriorContainer: {
+    margin: 8,
+  },
+  inputInteriorContainer:{
+    borderColor: '#1ed760',
+  },
+  input:{
+    color: 'whitesmoke'
+  },
+  buttonContainer:{
+    padding: 16,
+    width: '100%'
+  },
+  button:{
+    backgroundColor: '#1ed760',
+    color: "whitesmoke"
+  },
+  register: {
+    color: "whitesmoke",
+    fontSize: 16
+  }
+})
 
 class LogIn extends React.Component {
   constructor(props) {
@@ -25,23 +59,38 @@ class LogIn extends React.Component {
   }
 
   render() {
+    const { navigation } = this.props
     return (
-      <View >
-        <Text> Iniciar sesión </Text>
+      <LinearGradient style={styles.container} colors={this.gradientColors} locations={this.gradientStops}>
+        <Text style={styles.title}> Inicia sesión </Text>
         <Input
+          containerStyle={styles.inputExteriorContainer}
+          inputContainerStyle={styles.inputInteriorContainer}
+          inputStyle={styles.input}
+          selectionColor='whitesmoke'
+          placeholderTextColor='whitesmoke'
           placeholder="Correo electrónico"
-          leftIcon={<Icon name='mail-outline' size={24} color='black'/>}
+          leftIcon={<Icon name='mail-outline' size={24} color='#1ed760' />}
         />
         <Input
+          containerStyle={styles.inputExteriorContainer}
+          inputContainerStyle={styles.inputInteriorContainer}
+          inputStyle={styles.input}
+          selectionColor='whitesmoke'
+          placeholderTextColor='whitesmoke'
           placeholder="Contraseña"
           secureTextEntry={true}
-          leftIcon={<Icon name='lock-outline' size={24} color='black'/>}
+          leftIcon={<Icon name='lock-outline' size={24} color='#1ed760' />}
         />
         <Button
+          containerStyle={styles.buttonContainer}
+          buttonStyle={styles.button}
           title='Iniciar sesión'
         />
-        <Text> ¿Aún no tienes cuenta? </Text>
-      </View>
+        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+          <Text style={styles.register}> ¿Aún no tienes cuenta? </Text>
+        </TouchableOpacity>
+      </LinearGradient>
     );
   }
 }

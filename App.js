@@ -19,8 +19,8 @@ const AppNav = StackNavigator({
     screen: Join,
   }
 }, {
-  headerMode: 'none'
-});
+    headerMode: 'none'
+  });
 
 const InitStack = StackNavigator({
   Intro: {
@@ -33,8 +33,9 @@ const InitStack = StackNavigator({
     screen: SignUp
   }
 }, {
-  headerMode: 'none'
-});
+    initialRouteName: 'Intro',
+    headerMode: 'none'
+  });
 
 const SwitchFlow = SwitchNavigator(
   {

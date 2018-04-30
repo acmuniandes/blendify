@@ -7,23 +7,27 @@ import { Button } from 'react-native-elements';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center', //Horizontal
+    // justifyContent: 'center' //Vertical
   },
   titleContainer: {
     alignItems: 'center',
     borderColor: '#1ed760',
     width: '100%',
+    paddingBottom: 8,
     borderBottomWidth: 2
   },
   title: {
     paddingTop: 16,
     color: '#FFFFFF',
-    textAlign: 'center',
-    fontSize: 64
+    textAlign: 'left',
+    width: '100%',
+    fontSize: 60
   },
   subtitle: {
-    textAlign: 'center',
-    color: '#FFFFFF',
+    textAlign: 'left',
+    width: '100%',
+    color: '#FFFFFF'
   },
   content: {
     textAlign: 'center',
@@ -42,7 +46,15 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginHorizontal: 8,
     backgroundColor: '#1ed760'
-  }
+  },
+  buttonContainer: {
+    padding: 16,
+    width: '100%'
+  },
+  button: {
+    backgroundColor: '#1ed760',
+    color: "whitesmoke"
+  },
 });
 
 class Intro extends React.Component {
@@ -80,14 +92,13 @@ class Intro extends React.Component {
   }
 
   render() {
+    const { navigation } = this.props
     return (
       <LinearGradient style={styles.container} colors={this.gradientColors} locations={this.gradientStops}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Blendify</Text>
           <Text style={styles.subtitle}>Escucha, descubre y comparte</Text>
         </View>
-
-        <View style={styles.separator} />
 
         <View style={{ height: 300 }}>
           <Carousel
@@ -98,15 +109,18 @@ class Intro extends React.Component {
             itemWidth={Dimensions.get('window').width}
             renderItem={({ item }) => {
               return (
-                item.end?
-                <View>
-                  <Button
-                    title="Continuar"
-                  />
-                </View>:
-                <View>
-                  <Text style={styles.message}>{item}</Text>
-                </View>
+                item.end ?
+                  <View>
+                    <Button
+                      title="Continuar"
+                      containerStyle={styles.buttonContainer}
+                      buttonStyle={styles.button}
+                      onPress={() => navigation.navigate('LogIn')}
+                    />
+                  </View> :
+                  <View>
+                    <Text style={styles.message}>{item}</Text>
+                  </View>
               );
             }}
             onSnapToItem={(index) => this.setState({ activeSlide: index })}

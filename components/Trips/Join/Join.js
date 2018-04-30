@@ -4,7 +4,7 @@ import { Button, Input } from 'react-native-elements';
 import { LinearGradient } from 'expo';
 
 class Join extends React.Component {
-  constructor(){
+  constructor() {
     super();
   }
 
@@ -23,8 +23,8 @@ class Join extends React.Component {
     this.invertStops(this.gradientStops);
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <LinearGradient>
         <Button
           title="Unirse por QR"
