@@ -96,7 +96,7 @@ class SignUp extends React.Component {
           buttonStyle={styles.button}
           title='Registrarse'
         />
-        <TouchableOpacity onPress={() => navigation.navigate('LogIn')}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <Text style={styles.register}> ¿Ya tienes cuenta? </Text>
         </TouchableOpacity>
       </LinearGradient>

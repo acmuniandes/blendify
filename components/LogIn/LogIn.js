@@ -26,11 +26,13 @@ const styles = StyleSheet.create({
   },
   buttonContainer:{
     padding: 16,
-    width: '100%'
+    width: '100%',
+    borderRadius: 48
   },
   button:{
     backgroundColor: '#1ed760',
-    color: "whitesmoke"
+    color: "whitesmoke",
+    borderRadius: 48
   },
   register: {
     color: "whitesmoke",
@@ -54,12 +56,21 @@ class LogIn extends React.Component {
     this.gradientStops.reverse();
   }
 
+  logIn = (username, password) =>{
+    const { navigation } = this.props
+    logInCorrect = true;
+    console.log(username, password);
+    if(logInCorrect){
+      navigation.navigate('AppNav');//Switch
+    }
+  }
+
   componentDidMount = () => {
     this.invertStops(this.gradientStops);
   }
 
   render() {
-    const { navigation } = this.props
+    const { navigation } = this.props;
     return (
       <LinearGradient style={styles.container} colors={this.gradientColors} locations={this.gradientStops}>
         <Text style={styles.title}> Inicia sesión </Text>
@@ -86,6 +97,7 @@ class LogIn extends React.Component {
           containerStyle={styles.buttonContainer}
           buttonStyle={styles.button}
           title='Iniciar sesión'
+          onPress={() => this.logIn('hola', '123')}
         />
         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
           <Text style={styles.register}> ¿Aún no tienes cuenta? </Text>

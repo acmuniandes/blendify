@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Dimensions, Text, View } from 'react-native';
+import { StyleSheet, Dimensions, Text, View, Image } from 'react-native';
 import { LinearGradient } from 'expo';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { Button } from 'react-native-elements';
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     alignItems: 'center',
-    borderColor: '#1ed760',
+    borderColor: '#1ED760',
     width: '100%',
     paddingBottom: 8,
     borderBottomWidth: 2
@@ -55,9 +55,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#1ed760',
     color: "whitesmoke"
   },
+  logo:{
+
+  }
 });
 
 class Intro extends React.Component {
+
+  gradientColors = [];
+  gradientStops = [];
 
   constructor(props) {
     super(props);
@@ -65,6 +71,9 @@ class Intro extends React.Component {
       message: '',
       activeSlide: 0
     }
+    this.gradientColors = ['#2B2C2B', '#0A0A0A'];
+    this.gradientStops = [0, 1];
+    this.invertStops(this.gradientStops);
   }
 
   messages = [
@@ -75,9 +84,6 @@ class Intro extends React.Component {
       end: true
     }
   ];
-
-  gradientColors = ['#2B2C2B', '#0A0A0A'];
-  gradientStops = [0, 1];
 
   invertStops = stops => {
     for (var i = 0; i < stops.length; i++) {
@@ -96,6 +102,7 @@ class Intro extends React.Component {
     return (
       <LinearGradient style={styles.container} colors={this.gradientColors} locations={this.gradientStops}>
         <View style={styles.titleContainer}>
+          <Image style={styles.logo} source={require('./../../assets/logo/black.png')}/>
           <Text style={styles.title}>Blendify</Text>
           <Text style={styles.subtitle}>Escucha, descubre y comparte</Text>
         </View>
