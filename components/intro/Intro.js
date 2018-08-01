@@ -2,38 +2,16 @@ import React from 'react';
 import { StyleSheet, Dimensions, Text, View, Image } from 'react-native';
 import { LinearGradient } from 'expo';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { Button } from 'react-native-elements';
+import BlendifyButton from './../BlendifyComponents/Button';
+import BlendifyTitle from './../BlendifyComponents/Title';
+
+import defaultStyles from './../styles';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center', //Horizontal
     // justifyContent: 'center' //Vertical
-  },
-  titleContainer: {
-    alignItems: 'center',
-    borderColor: '#1ED760',
-    width: '100%',
-    paddingBottom: 8,
-    borderBottomWidth: 2
-  },
-  title: {
-    paddingTop: 16,
-    color: '#FFFFFF',
-    textAlign: 'left',
-    width: '100%',
-    fontSize: 60
-  },
-  subtitle: {
-    textAlign: 'left',
-    width: '100%',
-    color: '#FFFFFF'
-  },
-  content: {
-    textAlign: 'center',
-    fontSize: 32,
-    color: '#FFFFFF',
-    paddingTop: 88
   },
   message: {
     color: '#FFF',
@@ -46,17 +24,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginHorizontal: 8,
     backgroundColor: '#1ed760'
-  },
-  buttonContainer: {
-    padding: 16,
-    width: '100%'
-  },
-  button: {
-    backgroundColor: '#1ed760',
-    color: "whitesmoke"
-  },
-  logo:{
-
   }
 });
 
@@ -101,13 +68,8 @@ class Intro extends React.Component {
     const { navigation } = this.props
     return (
       <LinearGradient style={styles.container} colors={this.gradientColors} locations={this.gradientStops}>
-        <View style={styles.titleContainer}>
-          <Image style={styles.logo} source={require('./../../assets/logo/black.png')}/>
-          <Text style={styles.title}>Blendify</Text>
-          <Text style={styles.subtitle}>Escucha, descubre y comparte</Text>
-        </View>
-
-        <View style={{ height: 300 }}>
+        <BlendifyTitle/>
+        <View style={{ height: '80%' }}>
           <Carousel
             layout='default'
             ref={(c) => { this._carousel = c; }}
@@ -118,10 +80,8 @@ class Intro extends React.Component {
               return (
                 item.end ?
                   <View>
-                    <Button
+                    <BlendifyButton
                       title="Continuar"
-                      containerStyle={styles.buttonContainer}
-                      buttonStyle={styles.button}
                       onPress={() => navigation.navigate('LogIn')}
                     />
                   </View> :

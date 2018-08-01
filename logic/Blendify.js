@@ -1,24 +1,20 @@
 import CreatePlaylists from './logic/CreatePlaylists'
 import ManagePlaylists from './logic/ManagePlaylists'
+import firebase from './../firebase'
 
-class Blendify{
 
-  constructor(){
-    //Inicializar firebase
-  }
-
-  createPlaylist(user){
-
-  }
-
-  addUserToBlend(creator, addedUser, blendID){
-
-  }
-
-  removeUserFromPlaylist(creator, removedUser, blendID){
-
-  } 
+export const createPlaylist = (user) => {
 
 }
+
+export const addUserToBlend = (creator, addedUser, blendID) => {
+
+}
+
+export const removeUserFromPlaylist = (creator, removedUser, blendID) => {
+  
+} 
+
+
 
 export default Blendify;

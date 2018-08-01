@@ -46,14 +46,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     backgroundColor: '#1ed760'
   },
-  buttonContainer: {
-    padding: 16,
-    width: '100%'
-  },
-  button: {
-    backgroundColor: '#1ed760',
-    color: "whitesmoke"
-  },
   date: {
 
   },

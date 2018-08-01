@@ -8,6 +8,8 @@ import Trips from './components/Trips/Trips';
 import Blends from './components/Trips/Blends/Blends';
 import Join from './components/Trips/Join/Join';
 
+import firebase from './firebase'
+
 const AppNav = StackNavigator({
   Trips: {
     screen: Trips
@@ -48,6 +50,14 @@ const SwitchFlow = SwitchNavigator(
 );
 
 class App extends React.Component {
+
+  constructor(){
+    super();
+    firebase.auth().createUserWithEmailAndPassword('daniel@serrano.com', '1234567890').catch(error => {
+      console.log(error)
+    })
+  }
+
   render() {
     return (
       <SwitchFlow />

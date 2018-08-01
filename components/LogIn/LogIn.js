@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo';
 import { Button, Input, Icon } from 'react-native-elements';
+import BlendifyButton from './../BlendifyComponents/Button';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,18 +25,8 @@ const styles = StyleSheet.create({
   input:{
     color: 'whitesmoke'
   },
-  buttonContainer:{
-    padding: 16,
-    width: '100%',
-    borderRadius: 48
-  },
-  button:{
-    backgroundColor: '#1ed760',
-    color: "whitesmoke",
-    borderRadius: 48
-  },
   register: {
-    color: "whitesmoke",
+    //color: "whitesmoke",
     fontSize: 16
   }
 })
@@ -93,10 +84,9 @@ class LogIn extends React.Component {
           secureTextEntry={true}
           leftIcon={<Icon name='lock-outline' size={24} color='#1ed760' />}
         />
-        <Button
-          containerStyle={styles.buttonContainer}
-          buttonStyle={styles.button}
+        <BlendifyButton
           title='Iniciar sesión'
+          wide={true}
           onPress={() => this.logIn('hola', '123')}
         />
         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
