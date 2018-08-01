@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage } from 'react-native';
 import { LinearGradient } from 'expo';
 import { Button, Input, Icon } from 'react-native-elements';
 import BlendifyButton from './../BlendifyComponents/Button';
+import firebase from './../../firebase';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,14 +27,21 @@ const styles = StyleSheet.create({
     color: 'whitesmoke'
   },
   register: {
-    //color: "whitesmoke",
-    fontSize: 16
+    color: "whitesmoke",
+    fontSize: 16,
+    textDecorationLine: 'underline'
   }
 })
+
+const db = firebase.firestore();
 
 class LogIn extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      email: '',
+      password: ''
+    }
   }
 
   gradientColors = ['#2B2C2B', '#0A0A0A'];
@@ -47,12 +55,32 @@ class LogIn extends React.Component {
     this.gradientStops.reverse();
   }
 
-  logIn = (username, password) =>{
+  logIn = () =>{
+    
+    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(userCredentials => {
+
+      db.collection('users').doc(userCredentials.user.uid).get().then( snapshot => {
+
+        this.storeUid(userCredentials);
+
+      }).catch( error => {
+        console.log('Error extrayendo información: ', error)
+      })
+
+    })
+    .catch(error =>{
+      //Alert
+      console.log('Error haciendo login: ', error)
+    })
+  }
+
+  storeUid = async (userCredentials) =>{
     const { navigation } = this.props
-    logInCorrect = true;
-    console.log(username, password);
-    if(logInCorrect){
-      navigation.navigate('AppNav');//Switch
+    try{
+      await AsyncStorage.setItem('@Blendify:uid', userCredentials.user.uid);
+      navigation.navigate('AppNav');
+    }catch(error){
+      console.log('Hubo un error guardando en la BD', error);
     }
   }
 
@@ -73,6 +101,7 @@ class LogIn extends React.Component {
           placeholderTextColor='whitesmoke'
           placeholder="Correo electrónico"
           leftIcon={<Icon name='mail-outline' size={24} color='#1ed760' />}
+          onChangeText={(email) => this.setState({email})}
         />
         <Input
           containerStyle={styles.inputExteriorContainer}
@@ -83,11 +112,12 @@ class LogIn extends React.Component {
           placeholder="Contraseña"
           secureTextEntry={true}
           leftIcon={<Icon name='lock-outline' size={24} color='#1ed760' />}
+          onChangeText={(password) => this.setState({password})}
         />
         <BlendifyButton
           title='Iniciar sesión'
           wide={true}
-          onPress={() => this.logIn('hola', '123')}
+          onPress={this.logIn}
         />
         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
           <Text style={styles.register}> ¿Aún no tienes cuenta? </Text>

@@ -1,7 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage } from 'react-native';
 import { LinearGradient } from 'expo';
-import { Button, Input, Icon } from 'react-native-elements';
+import { Input, Icon } from 'react-native-elements';
+import BlendifyButton from './../BlendifyComponents/Button';
+
+import firebase from './../../firebase';
+import { db } from './../../firebase';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,15 +36,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#1ed760',
     color: "whitesmoke"
   },
-  register: {
+  login: {
     color: "whitesmoke",
-    fontSize: 16
+    fontSize: 16,
+    textDecorationLine: 'underline'
   }
 })
+
 
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      email: '',
+      password: '',
+      name: ''
+    }
   }
 
   gradientColors = ['#2B2C2B', '#0A0A0A'];
@@ -58,6 +69,34 @@ class SignUp extends React.Component {
     this.invertStops(this.gradientStops);
   }
 
+  register = () =>{
+    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then( userCredentials => {
+
+      const { navigation } = this.props
+      const data = {
+        name: this.state.name,
+        blends: []
+      }
+
+      const setDoc = db.collection('users').doc(userCredentials.user.uid).set(data);
+
+      this.storeUid(userCredentials);
+    })
+    .catch(error => {
+      console.log(error)
+      //ufff
+    })
+  }
+
+  storeUid = async (userCredentials) =>{
+    try{
+      await AsyncStorage.setItem('@Blendify:uid', userCredentials.user.uid);
+      navigation.navigate('AppNav');
+    }catch(error){
+      console.log('Hubo un error guardando en la BD', error);
+    }
+  }
+
   render() {
     const { navigation } = this.props
     return (
@@ -71,6 +110,7 @@ class SignUp extends React.Component {
           placeholderTextColor='whitesmoke'
           placeholder="Nombre"
           leftIcon={<Icon name='account-circle' size={24} color='#1ed760' />}
+          onChangeText={(name) => this.setState({name})}
         />
         <Input
           containerStyle={styles.inputExteriorContainer}
@@ -80,6 +120,7 @@ class SignUp extends React.Component {
           placeholderTextColor='whitesmoke'
           placeholder="Correo electrónico"
           leftIcon={<Icon name='mail-outline' size={24} color='#1ed760' />}
+          onChangeText={(email) => this.setState({email})}
         />
         <Input
           containerStyle={styles.inputExteriorContainer}
@@ -90,14 +131,15 @@ class SignUp extends React.Component {
           placeholder="Contraseña"
           secureTextEntry={true}
           leftIcon={<Icon name='lock-outline' size={24} color='#1ed760' />}
+          onChangeText={(password) => this.setState({password})}
         />
-        <Button
-          containerStyle={styles.buttonContainer}
-          buttonStyle={styles.button}
+        <BlendifyButton
           title='Registrarse'
+          onPress={this.register}
+          wide={true}
         />
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text style={styles.register}> ¿Ya tienes cuenta? </Text>
+          <Text style={styles.login}> ¿Ya tienes cuenta? </Text>
         </TouchableOpacity>
       </LinearGradient>
     );

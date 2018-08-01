@@ -12,7 +12,7 @@ import firebase from './firebase'
 
 const AppNav = StackNavigator({
   Trips: {
-    screen: Trips
+    screen: Trips 
   },
   Blends: {
     screen: Blends
@@ -49,13 +49,10 @@ const SwitchFlow = SwitchNavigator(
   }
 );
 
-class App extends React.Component {
+class App extends React.Component { 
 
   constructor(){
     super();
-    firebase.auth().createUserWithEmailAndPassword('daniel@serrano.com', '1234567890').catch(error => {
-      console.log(error)
-    })
   }
 
   render() {
