@@ -65,16 +65,13 @@ class SignUp extends React.Component {
     this.gradientStops.reverse();
   }
 
-  componentDidMount = () => {
-    this.invertStops(this.gradientStops);
-  }
-
   register = () =>{
-    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then( userCredentials => {
+    const email = this.state.email
+    firebase.auth().createUserWithEmailAndPassword(email, this.state.password).then( userCredentials => {
 
-      const { navigation } = this.props
       const data = {
         name: this.state.name,
+        email,
         blends: []
       }
 

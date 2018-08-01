@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, AsyncStorage, Modal } from 'react-native';
 import { Input } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 import { LinearGradient } from 'expo';
@@ -20,9 +20,14 @@ const styles = StyleSheet.create({
   }
 });
 
-class Trips extends React.Component {
+class Home extends React.Component {
   constructor() {
     super();
+
+    this.gradientColors = ['#2B2C2B', '#0A0A0A'];
+    this.gradientStops = [0, 1];
+    this.invertStops(this.gradientStops);
+
     this.state = {
       uid: ''
     }
@@ -40,20 +45,24 @@ class Trips extends React.Component {
     this.gradientStops.reverse();
   }
 
-  componentDidMount = () => {
-    this.invertStops(this.gradientStops);
-  }
-
   retrieveUid = async () => {
     try {
       const value = await AsyncStorage.getItem('@Blendify:uid');
       if (value !== null) {
         this.setState({uid: value})
-        console.log(value);
+        this.
       }
      } catch (error) {
        console.log('Error retrieving data', error);
      }
+  }
+
+  retrieveData = (uid) =>{
+    db.collection('users').doc(uid).get().then( snapshot => {
+      this.setState({ user_data: snapshot.data() })
+    }).catch( error => {
+      console.log('Error extrayendo información: ', error)
+    });
   }
 
   render() {
@@ -65,18 +74,21 @@ class Trips extends React.Component {
         <BlendifyTitle />
 
         <View style={styles.content}>
-          <BlendifyButton
-            title={'Mis Blends: ' + uid}
-            onPress={() => navigation.navigate('Blends')}
-          />
-          <BlendifyButton
-            title={'Unirse a un Blend'}
-            onPress={() => navigation.navigate('Join')}
-          />
+          <Text>¡Bienvenido de nuevo, {this.state.user_data.name}!</Text>
+          <View>
+            <BlendifyButton
+              title={'Mis Blends: ' + uid}
+              onPress={() => navigation.push('Blends')}
+            />
+            <BlendifyButton
+              title={'Unirse a un Blend'}
+              onPress={() => navigation.push('Join')}
+            />
+          <View>
         </View>
       </LinearGradient>
     );
   }
 }
 
-export default Trips;
+export default Home;

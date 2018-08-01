@@ -84,10 +84,6 @@ class LogIn extends React.Component {
     }
   }
 
-  componentDidMount = () => {
-    this.invertStops(this.gradientStops);
-  }
-
   render() {
     const { navigation } = this.props;
     return (

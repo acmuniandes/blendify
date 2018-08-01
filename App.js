@@ -4,15 +4,16 @@ import { StackNavigator, DrawerNavigator, SwitchNavigator } from 'react-navigati
 import Intro from './components/Intro/Intro';
 import LogIn from './components/LogIn/LogIn';
 import SignUp from './components/SignUp/SignUp';
-import Trips from './components/Trips/Trips';
+import Home from './components/Trips/Home';
 import Blends from './components/Trips/Blends/Blends';
 import Join from './components/Trips/Join/Join';
+import Create from './components/Trips/Blends/Create';
 
 import firebase from './firebase'
 
 const AppNav = StackNavigator({
-  Trips: {
-    screen: Trips 
+  Home: {
+    screen: Home 
   },
   Blends: {
     screen: Blends

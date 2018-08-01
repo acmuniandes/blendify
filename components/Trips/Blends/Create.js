@@ -22,10 +22,6 @@ class Create extends React.Component {
     this.gradientStops.reverse();
   }
 
-  componentDidMount = () => {
-    this.invertStops(this.gradientStops);
-  }
-
   confirm = () => {
     this.setState({ confirmed: true })
   }
@@ -33,12 +29,13 @@ class Create extends React.Component {
   render() {
     return (
       <LinearGradient colors={this.gradientColors} locations={this.gradientStops}>
-        <Button
-          title=""
-          icon="arrow-back"
-          onPress={() => "hola"}
-        />
-        <Notice confirm={this.confirm} />
+        <View>
+          <Button
+            title=""
+            icon="arrow-back"
+            onPress={() => "hola"}
+          />
+        </View>
       </LinearGradient>
     );
   }

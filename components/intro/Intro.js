@@ -60,10 +60,6 @@ class Intro extends React.Component {
     this.gradientStops.reverse();
   }
 
-  componentDidMount = () => {
-    this.invertStops(this.gradientStops);
-  }
-
   render() {
     const { navigation } = this.props
     return (
